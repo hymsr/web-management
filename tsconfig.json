@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "api/*": ["./src/api/*"],
+      "img": ["./src/img"]
+    }
+  },
+  "include": [
+    "./src/index.js"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
+}
