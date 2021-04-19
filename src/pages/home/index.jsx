@@ -1,31 +1,32 @@
-import React from 'react';
-import { Input, Form } from 'antd';
+import React, { useState } from 'react';
+import { Menu, } from 'antd';
+import { ShoppingOutlined, SettingOutlined } from '@ant-design/icons';
+import history from 'utils/history';
+
 import './index.less';
 
 export default function Home() {
+  const [current, setCurrent] = useState();
 
   return(
-    <div className="login">
-      <div className="login-head">
-        管理员登录
-      </div>
-      <div className="login-form">
-      <Form>
-        <Form.Item
-          label="账号"
-          name="token"
-          rules={[
-            {
-              required: true,
-              message: 'Please input admin token!',
-            },
-          ]}
-        >
-          <Input/>
-        </Form.Item>
-      </Form>
+    <div>
+      <Menu 
+        onClick={(e) => {
+          setCurrent(e.key);
+        }} 
+        selectedKeys={[current]} 
+        mode="horizontal"
+      >
+        <Menu.Item key="shopping" icon={<ShoppingOutlined />}>
+          商品管理
+        </Menu.Item>
+        <Menu.SubMenu className="float-right" key="SubMenu" icon={<SettingOutlined />} title="setting">
+          <Menu.Item 
+            key="exit"
+            onClick={() => history.push('/')}
+          >退出</Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
     </div>
-    </div>
-    
   );
 }
