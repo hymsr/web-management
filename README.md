@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# template-web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+客户端：react + antd + mobx
 
-## Available Scripts
+服务端：koa
 
-In the project directory, you can run:
+## web访问地址
 
-### `npm start`
+正式环境：
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+测试环境：
+## 部署平台
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## 运行
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 安装依赖
 
-### `npm run build`
+需要nodejs环境，版本建议12及以上。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm i
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+镜像源需要使用[内部npm](https://mirrors.tencent.com/#/private/npm)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 启动
 
-### `npm run eject`
+```
+npm run build
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+打开 http://localhost:8000
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 开发模式
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm start
+npm run dev
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+打开 http://localhost:3000
 
-## Learn More
+### 测试
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+单元测试：
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm run test
+```
 
-### Code Splitting
+代码规范：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+npm run lint
+```
 
-### Analyzing the Bundle Size
+## 规范
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 项目结构
 
-### Making a Progressive Web App
+```
+├── .code.yml
+├── README.md
+├── config
+│   ├── .eslintrc.js
+│   ├── base.js
+│   ├── jest.config.js
+│   ├── jest.setup.js
+│   └── webpack.config.js
+├── custom-build.sh
+├── package-lock.json
+├── package.json
+├── script
+│   ├── build.js
+│   └── dev.js
+├── server
+│   ├── config.js
+│   ├── index.js
+│   └── route
+│       └── index.js
+├── src
+│   ├── api
+│   │   ├── index.ts
+│   │   └── req.ts
+│   ├── app.test.js
+│   ├── app.tsx
+│   ├── component
+│   │   ├── index.ts
+│   │   ├── layout
+│   │   └── with-store
+│   ├── declaration.d.ts
+│   ├── def
+│   │   ├── constant.ts
+│   │   └── type.ts
+│   ├── index.html
+│   ├── index.less
+│   ├── index.tsx
+│   ├── page
+│   │   ├── index
+│   │   └── task
+│   ├── router
+│   │   └── index.tsx
+│   ├── store
+│   │   └── index.ts
+│   ├── style
+│   │   └── common.less
+│   └── util
+│       ├── history.ts
+│       └── time.ts
+└── tsconfig.json
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 代码规范
 
-### Advanced Configuration
+遵循[腾讯js代码规范](https://git.code.oa.com/standards/javascript)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 组件规范
 
-### Deployment
+尼尔森十大可用性原则
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+

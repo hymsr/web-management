@@ -1,0 +1,37 @@
+@import '~@/style/def.less';
+
+.sider {
+  :global {
+    .logo {
+      height: 32px;
+      margin: 16px;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: @white-color;
+    }
+  }
+
+  // 这么写会报错:Missing whitespace after :global
+  // &.ant-layout-sider-collapsed { }
+  &:global(.ant-layout-sider-collapsed) {
+    :global {
+      .logo {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.header {
+  background: @white-color;
+  :global {
+    .header-wrapper {
+      .right {
+        float: right;
+      }
+    }
+  }
+}
+

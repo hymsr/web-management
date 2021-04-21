@@ -1,0 +1,88 @@
+@import '~@/style/def.less';
+
+body {
+  #root {
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    padding-bottom: 60px;
+  }
+
+  .weak-color {
+    color: #aaa;
+  }
+
+  .page {
+    background: @white-color;
+    padding: @page-margin;
+  }
+
+  .flex-x-center {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .flex-y-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .flex-x-between {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ant-table-cell {
+    word-break: break-all;
+  }
+
+  .cp {
+    cursor: pointer;
+  }
+
+  .form-title {
+    margin-bottom: 24px;
+    border-left: 2px solid @theme-bg-color;
+    padding-left: 8px;
+
+  }
+
+  .form-item-title {
+    padding: 0 0 8px;
+    line-height: 1.5715;
+    white-space: initial;
+    text-align: left;
+    &.required::before {
+      display: inline-block;
+      margin-right: 4px;
+      color: #ff4d4f;
+      font-size: 14px;
+      font-family: SimSun, sans-serif;
+      line-height: 1;
+      content: '*';
+    }
+  }
+
+  .no-form-gap {
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .ant-timeline.ant-timeline-label.left-align {
+    @label-width: 160px;
+
+    .ant-timeline-item {
+      .ant-timeline-item-label {
+        width: @label-width;
+      }
+      .ant-timeline-item-tail, .ant-timeline-item-head {
+        left: @label-width + 12px;
+      }
+      .ant-timeline-item-content {
+        left: @label-width + 4px;
+      }
+    }
+  }
+
+}
