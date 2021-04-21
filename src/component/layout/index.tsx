@@ -3,8 +3,8 @@ import { Layout, Menu, Dropdown } from 'antd';
 import api from '@/api';
 import { renderRoutes } from 'react-router-config';
 import { LoadingOutlined, DownOutlined } from '@ant-design/icons';
-import history from '@/util/history';
 import { isLocalEnv } from '@/util';
+import history from '@/util/history';
 import WithStore from '../with-store';
 import styles from './index.module.less';
 import commonStyles from '@/style/common.module.less';
@@ -13,16 +13,8 @@ import { sliderRoutes } from '@/router';
 
 const UserMenu = () => (
   <Menu>
-    <Menu.Item>
-      <a onClick={() => {
-        history.push('/page1');
-      }}>
-          跳转到page1
-      </a>
-    </Menu.Item>
-    <Menu.Divider />
     <Menu.Item disabled={isLocalEnv()}>
-      <a href={`/_logout/?url=${encodeURIComponent(window.location.origin)}`}>
+      <a href={'/'}>
           退出登录
       </a>
     </Menu.Item>
@@ -31,9 +23,9 @@ const UserMenu = () => (
 
 const Header = WithStore(({ store }) => {
   useEffect(() => {
-    api.getUser().then((user) => {
-      store.setUser(user);
-    });
+    if(!store.isAdmin) {
+      history.push('/');
+    }
   }, []);
 
   return (
@@ -42,7 +34,7 @@ const Header = WithStore(({ store }) => {
         <div className="rtx">
           <Dropdown overlay={<UserMenu/>}>
             <span className="cp">
-              <span style={{ marginRight: 6 }}>{store.user}</span>
+              <span style={{ marginRight: 6 }}>选项</span>
               <DownOutlined />
             </span>
           </Dropdown>

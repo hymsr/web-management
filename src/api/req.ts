@@ -8,10 +8,6 @@ const commonConf = {
   withCredentials: true,
 };
 
-const EPP_GW_CODE_HEADER = 'epp-gateway-code';
-const EPP_GW_MSG_HEADER = 'epp-gateway-msg';
-const EPP_GW_CODE_SUCC = '100000';
-
 // 发往统一后台的请求
 export const backendReq = ({
   url,
@@ -34,16 +30,10 @@ export const backendReq = ({
   method,
   ...commonConf,
 })
-  .then((res) => {
-    const { data, headers } = res;
-
-    // 统一处理data和headers，例如使用了epp网关的错误逻辑处理
-    if (headers[EPP_GW_CODE_HEADER] && headers[EPP_GW_CODE_HEADER] !== EPP_GW_CODE_SUCC) {
-      throw new Error(`gateway code not success, code: ${headers[EPP_GW_CODE_HEADER]}, msg: ${headers[EPP_GW_MSG_HEADER]}`);
-    }
-
-    // 返回业务数据
-    return data.data ? data.data : data;
+  .then((response) => {
+    if (response.data.ret === 0) return response.data;
+      message.error(response.data.msg);
+      throw response.data.msg;
   })
   .catch((err) => {
     // 统一提示err后，继续把err往业务层抛出，供业务层处理

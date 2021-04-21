@@ -22,8 +22,6 @@
 npm i
 ```
 
-镜像源需要使用[内部npm](https://mirrors.tencent.com/#/private/npm)
-
 ### 启动
 
 ```
