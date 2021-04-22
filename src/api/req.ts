@@ -24,7 +24,7 @@ export const backendReq = ({
 }): Promise<any> => axios.request({
   url,
   // 业务统一后台的请求地址
-  baseURL: `${baseConf.reqNameSpace.api}/gateway`,
+  baseURL: `${baseConf.reqNameSpace.api}`,
   data,
   params,
   method,

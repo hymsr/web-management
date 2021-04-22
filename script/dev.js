@@ -20,10 +20,10 @@ const server = new WebpackDevServer(webpack(webpackConf), {
   historyApiFallback: true,
   // 本地开发模式下的转发规则
   proxy: {
-    // emp统一后台服务，转发往后台网关
+    // 统一后台服务，转发往后台网关
     [baseConf.reqNameSpace.api]: {
-      target: 'http://api.apigw.oa.com/emp',
-      pathRewrite: { [`^${baseConf.reqNameSpace.api}`]: '' },
+      target: 'https://www.liiux.cn',
+      pathRewrite: { [`^${baseConf.reqNameSpace.api}`]: '/server' },
       changeOrigin: true,
     },
     // portal服务，直接转发给本地portal
