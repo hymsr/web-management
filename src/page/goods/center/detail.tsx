@@ -1,6 +1,6 @@
 import api from '@/api';
 import { userReady } from '@/store';
-import { Tabs, Form, Divider, Button, Input, message } from 'antd';
+import { Tabs, Form, Divider, Button, Input, message, InputNumber, Radio } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const { TabPane } = Tabs;
@@ -21,16 +21,12 @@ export default function PluginDetail({ match }) {
   }, [match.params.pluginId]);
 
   const update = async () => {
-    // api.updatePlugin({
-    //   id: pluginDetail?.pluginId as string,
-    //   user: await userReady,
-    //   item: {
-    //     ...pluginDetail,
-    //     ...form.getFieldsValue(),
-    //   },
-    // }).then(() => {
-    //   message.success('更新成功');
-    // });
+    api.updateGood({
+      ...goodsDetail,
+      ...form.getFieldsValue(),
+    }).then(() => {
+      message.success('更新成功');
+    });
   };
 
   return (
@@ -40,20 +36,25 @@ export default function PluginDetail({ match }) {
           <Form
             form={form}
             wrapperCol={{ span: 13 }}
-            labelCol={{ span: 2 }}
+            labelCol={{ span: 3 }}
             onFinish={update}
           >
             <Form.Item label="商品名">
               {goodsDetail?.name}
             </Form.Item>
             <Form.Item label="所需积分" name="needScores">
-              {goodsDetail?.needScores}
+              <InputNumber
+                min={0}
+              />
             </Form.Item>
             <Form.Item label="库存" name="inventory">
-              {goodsDetail?.inventory}
+              <InputNumber min={0}/>
             </Form.Item>
             <Form.Item label="上架状态" name="isForSale">
-              {goodsDetail?.isForSale}
+              <Radio.Group>
+                <Radio value={0}>上架</Radio>
+                <Radio value={1}>下架</Radio>
+              </Radio.Group>
             </Form.Item>
             <Divider/>
             <Button type="primary" onClick={form.submit}>更新</Button>

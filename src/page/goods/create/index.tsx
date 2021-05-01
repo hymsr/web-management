@@ -79,7 +79,7 @@ const CreatePlugin = WithStore(({ store }) => {
             },
           ]}
         >
-          <InputNumber/>
+          <InputNumber min={0}/>
         </Form.Item>
         <Form.Item label="图片">
           <Upload
@@ -101,7 +101,7 @@ const CreatePlugin = WithStore(({ store }) => {
             },
           ]}
         >
-          <InputNumber/>
+          <InputNumber min={0}/>
         </Form.Item>
         <Divider/>
         <Button type="primary" onClick={form.submit}>创建</Button>

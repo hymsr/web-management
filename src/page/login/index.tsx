@@ -4,6 +4,8 @@ import api from '@/api';
 import history from '@/util/history';
 import { set, get } from '@/util/ls';
 
+import styles from './index.module.less';
+
 export default function Login() {
   const [form] = Form.useForm();
   useEffect(() => {
@@ -13,12 +15,12 @@ export default function Login() {
   }, []);
 
   return(
-    <div className="wholePage">
-      <div className="login">
+    <div className={styles['wholePage']}>
+      <div className={styles['login']}>
         <div className="login-head">
           管理员登录
         </div>
-        <div className="login-form">
+        <div>
           <Form
             form={form}
           >

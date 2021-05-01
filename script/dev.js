@@ -22,8 +22,8 @@ const server = new WebpackDevServer(webpack(webpackConf), {
   proxy: {
     // 统一后台服务，转发往后台网关
     [baseConf.reqNameSpace.api]: {
-      target: 'https://www.liiux.cn',
-      pathRewrite: { [`^${baseConf.reqNameSpace.api}`]: '/server' },
+      target: 'https://www.liiux.cn/server',
+      pathRewrite: { [`^${baseConf.reqNameSpace.api}`]: '' },
       changeOrigin: true,
     },
     // portal服务，直接转发给本地portal

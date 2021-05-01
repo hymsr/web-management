@@ -58,11 +58,34 @@ export const sliderRoutes: Route[] = [
         ],
       },
       {
+        path: '/goods',
+        exact: true,
+        render() {
+          return <Redirect to={'/goods/center/market'}/>;
+        },
+      },
+      {
         prefix: '/goods/create',
         name: '商品创建',
         icon: <ShareAltOutlined />,
         path: '/goods/create',
         component: React.lazy(() => import('@/page/goods/create')),
+      },
+    ],
+  },
+  {
+    prefix: '/order',
+    name: '订单',
+    icon: <ShareAltOutlined />,
+    path: '/order',
+    component: React.lazy(() => import('@/page/order')),
+    routes: [
+      {
+        prefix: '/order/manager',
+        name: '订单管理',
+        icon: <ShareAltOutlined />,
+        path: '/order/manager',
+        component: React.lazy(() => import('@/page/order/manager')),
       },
     ],
   },
@@ -77,15 +100,15 @@ const routes = [
     },
   },
   {
-    path: '/goods',
+    path: '/login',
+    component: Login,
+  },
+  {
+    path: '/',
     component: Layout,
     routes: [
       ...sliderRoutes,
     ],
-  },
-  {
-    path: '/login',
-    component: Login,
   },
 ];
 

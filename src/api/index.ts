@@ -9,9 +9,16 @@ const api = {
       url: `/admin/${data?.token}`,
     });
   },
-  getAllGoods(): Promise<any> {
+  getGoods(data = {
+    page_index: 1,
+    page_size: -1,
+  }): Promise<any> {
     return backendReq({
-      url: `/commodity/all/1/-1`,
+      data: {
+        isForSale: -1,
+        ...data,
+      },
+      url: `/commodity/all/${data.page_index}/${data.page_size}`,
       method: 'get',
     });
   },
@@ -20,6 +27,13 @@ const api = {
       data,
       url: `/commodity`,
       method: 'POST',
+    });
+  },
+  updateGood(data: any): Promise<any> {
+    return backendReq({
+      data,
+      url: `/commodity`,
+      method: 'put',
     });
   },
 };

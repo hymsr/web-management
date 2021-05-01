@@ -7,41 +7,33 @@ import Goods from '@/component/goods';
 
 export default function PluginMarket() {
   const [form] = Form.useForm();
-  const [goodsList, setGoodsList] = useState<any>([
-    {
-      name: '1',
-      needScores: 1,
-      inventory: 20,
-      isForSale: 0,
-    }
-  ]);
+  const [goodsList, setGoodsList] = useState<any>();
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(9);
   const [init, setInit] = useState(false);
+  const [searchParams, setSearchParams] = useState<any>({});
 
   const submit = () => {
-    form.getFieldsValue();
-    api.getAllGoods().then((res) => {
-      setGoodsList(res.items);
-      setTotal(res.total);
-    });
+    setSearchParams(form.getFieldsValue());
+    setPage(1);
   };
 
   useEffect(() => {
     if (init) return;
 
-    // api.queryPluginList({
-    //   page: 1,
-    //   pageSize,
-    // }).then((res) => {
-    //   setPluginList(res.items);
-    //   setTotal(res.total);
-    // })
-    //   .finally(() => {
-    //     setInit(true);
-    //   });
-  }, []);
+    api.getGoods({
+      ...searchParams,
+      page_index: page,
+      page_size: pageSize,
+    }).then((res) => {
+      setGoodsList(res.commodity);
+      setTotal(res.total);
+    }).finally(() => {
+      setInit(true);
+    });
+
+  }, [init, page, pageSize]);
 
   return (
     <>
