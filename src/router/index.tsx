@@ -21,23 +21,48 @@ interface Route {
 
 export const sliderRoutes: Route[] = [
   {
-    prefix: '/home/menu',
-    name: '侧栏菜单',
+    prefix: '/goods',
+    name: '商品管理',
     icon: <ShareAltOutlined />,
-    path: '/home/menu',
-    component: React.lazy(() => import('@/page/submenu')),
+    path: '/goods',
+    component: React.lazy(() => import('@/page/goods')),
     routes: [
       {
-        prefix: '/home/menu/1',
-        name: '子菜单1',
-        path: '/home/menu/1',
-        component: React.lazy(() => import('@/page/submenu/menu1')),
+        prefix: '/goods/center',
+        name: '商品管理',
+        icon: <ShareAltOutlined />,
+        path: '/goods/center',
+        component: React.lazy(() => import('@/page/goods/center')),
+        routes: [
+          {
+            prefix: '/goods/center/detail/:goodsId',
+            name: '商品详情',
+            icon: <ShareAltOutlined />,
+            path: '/goods/center/detail/:goodsId',
+            component: React.lazy(() => import('@/page/goods/center/detail')),
+          },
+          {
+            prefix: '/goods/center/market',
+            name: '商品列表',
+            icon: <ShareAltOutlined />,
+            path: '/goods/center',
+            component: React.lazy(() => import('@/page/goods/center/market')),
+          },
+          {
+            path: '/goods/center',
+            exact: true,
+            render() {
+              return <Redirect to={'/goods/center/market'}/>;
+            },
+          },
+        ],
       },
       {
-        prefix: '/home/menu/2',
-        name: '子菜单2',
-        path: '/home/menu/2',
-        component: React.lazy(() => import('@/page/submenu/menu2')),
+        prefix: '/goods/create',
+        name: '商品创建',
+        icon: <ShareAltOutlined />,
+        path: '/goods/create',
+        component: React.lazy(() => import('@/page/goods/create')),
       },
     ],
   },
@@ -52,14 +77,10 @@ const routes = [
     },
   },
   {
-    path: '/home',
+    path: '/goods',
     component: Layout,
     routes: [
       ...sliderRoutes,
-      {
-        path: '/home/page1',
-        component: React.lazy(() => import('@/page/page1')),
-      },
     ],
   },
   {

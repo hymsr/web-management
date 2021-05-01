@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button} from 'antd';
 import api from '@/api';
+import history from '@/util/history';
+import { set, get } from '@/util/ls';
 
 export default function Login() {
   const [form] = Form.useForm();
+  useEffect(() => {
+    if (get('isLogin')) {
+      history.push('/goods/center');
+    };
+  }, []);
+
   return(
     <div className="wholePage">
       <div className="login">
@@ -32,8 +40,9 @@ export default function Login() {
                 const data = form.getFieldsValue(true);
                 api.adminLogin({
                   ...data
-                }).then(res => {
-                  console.log(res);
+                }).then(() => {
+                  set('isLogin', true, 3600);
+                  history.push('/goods/center');
                 });
               }}
             >登录</Button>

@@ -9,6 +9,19 @@ const api = {
       url: `/admin/${data?.token}`,
     });
   },
+  getAllGoods(): Promise<any> {
+    return backendReq({
+      url: `/commodity/all/1/-1`,
+      method: 'get',
+    });
+  },
+  createGood(data: any): Promise<any> {
+    return backendReq({
+      data,
+      url: `/commodity`,
+      method: 'POST',
+    });
+  },
 };
 
 export default api;

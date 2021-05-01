@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu, Dropdown, Card } from 'antd';
 import api from '@/api';
 import { renderRoutes } from 'react-router-config';
 import { LoadingOutlined, DownOutlined } from '@ant-design/icons';
-import { isLocalEnv } from '@/util';
-import history from '@/util/history';
 import WithStore from '../with-store';
 import styles from './index.module.less';
 import commonStyles from '@/style/common.module.less';
@@ -13,28 +11,22 @@ import { sliderRoutes } from '@/router';
 
 const UserMenu = () => (
   <Menu>
-    <Menu.Item disabled={isLocalEnv()}>
-      <a href={'/'}>
-          退出登录
+    <Menu.Item>
+      <a href={'/index'}>
+        退出登录
       </a>
     </Menu.Item>
   </Menu>
 );
 
 const Header = WithStore(({ store }) => {
-  useEffect(() => {
-    if(!store.isAdmin) {
-      history.push('/');
-    }
-  }, []);
-
   return (
     <div className="header-wrapper">
       <div className="right">
         <div className="rtx">
           <Dropdown overlay={<UserMenu/>}>
             <span className="cp">
-              <span style={{ marginRight: 6 }}>选项</span>
+              <span style={{ marginRight: 6 }}>{store.user}</span>
               <DownOutlined />
             </span>
           </Dropdown>
@@ -73,7 +65,7 @@ const MainLayout = ({ history, location, route }) => {
         className={styles.sider}
       >
         <div className="logo">
-          Template
+          Plugin
         </div>
         <Menu
           theme="dark"
@@ -116,9 +108,11 @@ const MainLayout = ({ history, location, route }) => {
         <Layout.Content
           className={commonStyles['page-padding']}
         >
-          <React.Suspense fallback={<LoadingOutlined/>}>
-            {renderRoutes(route.routes)}
-          </React.Suspense>
+          <Card>
+            <React.Suspense fallback={<LoadingOutlined/>}>
+              {renderRoutes(route.routes)}
+            </React.Suspense>
+          </Card>
         </Layout.Content>
       </Layout>
     </Layout>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderRoutes } from 'react-router-config';
 
-export default function SubmenuPage({
+function PluginCenterPage({
   route,
 }) {
   return (
@@ -10,3 +10,5 @@ export default function SubmenuPage({
     </div>
   );
 }
+
+export default PluginCenterPage;
