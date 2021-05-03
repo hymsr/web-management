@@ -1,23 +1,25 @@
-import api from '@/api';
 import { userReady } from '@/store';
-import { Tabs, Form, Divider, Button, Input, message, InputNumber, Radio } from 'antd';
+import { Tabs, Form, Divider, Button, Input, message, InputNumber, Radio, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
+import api from '@/api';
 
 const { TabPane } = Tabs;
 
 export default function PluginDetail({ match }) {
   const [goodsDetail, setGoodsDetail] = useState<any>();
+  const [loading, setLoading] = useState(true);
   const [form] = Form.useForm();
 
   useEffect(() => {
     if (!match.params.goodsId) return;
-
-    // api.queryPluginDetail({
-    //   name: match.params.pluginName,
-    // }).then((res) => {
-    //   setPluginDetail(res.item);
-    //   form.setFieldsValue(res.item);
-    // });
+    setLoading(true);
+    api.getGoodsItem({
+      id: match.params.goodsId,
+    }).then((res) => {
+      setGoodsDetail(res.item);
+      form.setFieldsValue(res.item);
+      setLoading(false);
+    });
   }, [match.params.goodsId]);
 
   const update = async () => {
@@ -33,6 +35,7 @@ export default function PluginDetail({ match }) {
     <div >
       <Tabs>
         <TabPane tab="商品基本信息" key="1">
+          <Skeleton active loading={loading}>
           <Form
             form={form}
             wrapperCol={{ span: 13 }}
@@ -59,6 +62,7 @@ export default function PluginDetail({ match }) {
             <Divider/>
             <Button type="primary" onClick={form.submit}>更新</Button>
           </Form>
+          </Skeleton>
         </TabPane>
       </Tabs>
     </div>

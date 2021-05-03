@@ -16,6 +16,12 @@ const api = {
       method: 'get',
     });
   },
+  getGoodsItem(data): Promise<any> {
+    return backendReq({
+      url: `/commodity/${data.id}`,
+      method: 'get',
+    });
+  },
   createGood(data: any): Promise<any> {
     return backendReq({
       data,
