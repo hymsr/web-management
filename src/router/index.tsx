@@ -22,7 +22,7 @@ interface Route {
 export const sliderRoutes: Route[] = [
   {
     prefix: '/goods',
-    name: '商品管理',
+    name: '商品',
     icon: <ShareAltOutlined />,
     path: '/goods',
     component: React.lazy(() => import('@/page/goods')),
@@ -86,6 +86,29 @@ export const sliderRoutes: Route[] = [
         icon: <ShareAltOutlined />,
         path: '/order/manager',
         component: React.lazy(() => import('@/page/order/manager')),
+      },
+    ],
+  },
+  {
+    prefix: '/Ad',
+    name: '广告',
+    icon: <ShareAltOutlined />,
+    path: '/Ad',
+    component: React.lazy(() => import('@/page/Ad')),
+    routes: [
+      {
+        prefix: '/Ad/manager',
+        name: '广告管理',
+        icon: <ShareAltOutlined />,
+        path: '/Ad/manager',
+        component: React.lazy(() => import('@/page/ad/manager')),
+      },
+      {
+        path: '/Ad',
+        exact: true,
+        render() {
+          return <Redirect to={'/Ad/manager'}/>;
+        },
       },
     ],
   },

@@ -10,7 +10,7 @@ export default function PluginDetail({ match }) {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (!match.params.pluginName) return;
+    if (!match.params.goodsId) return;
 
     // api.queryPluginDetail({
     //   name: match.params.pluginName,
@@ -18,7 +18,7 @@ export default function PluginDetail({ match }) {
     //   setPluginDetail(res.item);
     //   form.setFieldsValue(res.item);
     // });
-  }, [match.params.pluginId]);
+  }, [match.params.goodsId]);
 
   const update = async () => {
     api.updateGood({

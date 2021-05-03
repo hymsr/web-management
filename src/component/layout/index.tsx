@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Dropdown, Card } from 'antd';
-import api from '@/api';
 import { renderRoutes } from 'react-router-config';
 import { LoadingOutlined, DownOutlined } from '@ant-design/icons';
 import WithStore from '../with-store';

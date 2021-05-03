@@ -4,7 +4,7 @@ import history from '@/util/history';
 import api from '@/api';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
-const CreatePlugin = () => {
+const CreateAd = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
@@ -105,4 +105,4 @@ const CreatePlugin = () => {
   );
 };
 
-export default CreatePlugin;
+export default CreateAd;

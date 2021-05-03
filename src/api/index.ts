@@ -1,4 +1,4 @@
-import { backendReq, portalReq } from './req';
+import { backendReq } from './req';
 
 const api = {
   mockRsp<T>(res?: T): Promise<T> {
@@ -9,16 +9,10 @@ const api = {
       url: `/admin/${data?.token}`,
     });
   },
-  getGoods(data = {
-    page_index: 1,
-    page_size: -1,
-  }): Promise<any> {
+  getGoodsList(data): Promise<any> {
     return backendReq({
-      data: {
-        isForSale: -1,
-        ...data,
-      },
-      url: `/commodity/all/${data.page_index}/${data.page_size}`,
+      params: data,
+      url: `/commodity`,
       method: 'get',
     });
   },
@@ -34,6 +28,13 @@ const api = {
       data,
       url: `/commodity`,
       method: 'put',
+    });
+  },
+  getOrderList(params): Promise<any> {
+    return backendReq({
+      params,
+      url: `/order`,
+      method: 'get',
     });
   },
 };

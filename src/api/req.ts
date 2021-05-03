@@ -28,12 +28,13 @@ export const backendReq = ({
   data,
   params,
   method,
+  timeout: 10000,
   ...commonConf,
 })
   .then((response) => {
     if (response.data.ret === 0) return response.data;
-      message.error(response.data.msg);
-      throw response.data.msg;
+    message.error(response.data.msg);
+    throw response.data.msg;
   })
   .catch((err) => {
     // 统一提示err后，继续把err往业务层抛出，供业务层处理
@@ -64,6 +65,7 @@ export const portalReq = ({
   params,
   method,
   ...commonConf,
+  timeout: 5000,
 })
   .then((res) => {
     const { data } = res;

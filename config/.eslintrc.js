@@ -4,7 +4,6 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:jest/recommended',
-    '@tencent/eslint-config-tencent',
   ],
   rules: {
     'react/prop-types': 0,

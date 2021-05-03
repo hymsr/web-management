@@ -5,7 +5,7 @@ import history from '@/util/history';
 import styles from './index.module.less';
 import api from '@/api';
 
-const Goods = ({ goodsItem, proxyRefresh }) => {
+const AdItem = ({ goodsItem, proxyRefresh }) => {
 
   const handleItemStatus = (status) => {
     if (status === 0) return 'success';
@@ -42,4 +42,4 @@ const Goods = ({ goodsItem, proxyRefresh }) => {
   );
 };
 
-export default Goods;
+export default AdItem;
