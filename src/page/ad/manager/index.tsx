@@ -86,7 +86,6 @@ export default function GoodsMarket() {
                 goodsList?.map(goods => <Goods 
                   key={goods.pluginId} 
                   goodsItem={goods} 
-                  proxyRefresh={() => setInit(false)}
                 />)
               }
             </div>

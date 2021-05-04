@@ -43,6 +43,12 @@ const api = {
       method: 'get',
     });
   },
+  deliverGoods(data): Promise<any> {
+    return backendReq({
+      url: `/order/${data.orderId}`,
+      method: 'put',
+    });
+  },
 };
 
 export default api;

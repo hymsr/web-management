@@ -1,20 +1,15 @@
 import React from 'react';
-import { Card, Badge, Tooltip, Modal, message } from 'antd';
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Card, Badge, Tooltip } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import history from '@/util/history';
 import styles from './index.module.less';
-import api from '@/api';
 
-const Goods = ({ goodsItem, proxyRefresh }) => {
+const Goods = ({ goodsItem }) => {
 
   const handleItemStatus = (status) => {
     if (status === 0) return 'success';
     if (status === 1) return 'error';
   };
-
-  const destroyAll = () => {
-
-  }
 
   const forSale = ['上架', '下架']
 

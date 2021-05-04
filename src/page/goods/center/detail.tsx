@@ -36,32 +36,32 @@ export default function PluginDetail({ match }) {
       <Tabs>
         <TabPane tab="商品基本信息" key="1">
           <Skeleton active loading={loading}>
-          <Form
-            form={form}
-            wrapperCol={{ span: 13 }}
-            labelCol={{ span: 3 }}
-            onFinish={update}
-          >
-            <Form.Item label="商品名">
-              {goodsDetail?.name}
-            </Form.Item>
-            <Form.Item label="所需积分" name="needScores">
-              <InputNumber
-                min={0}
-              />
-            </Form.Item>
-            <Form.Item label="库存" name="inventory">
-              <InputNumber min={0}/>
-            </Form.Item>
-            <Form.Item label="上架状态" name="isForSale">
-              <Radio.Group>
-                <Radio value={0}>上架</Radio>
-                <Radio value={1}>下架</Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Divider/>
-            <Button type="primary" onClick={form.submit}>更新</Button>
-          </Form>
+            <Form
+              form={form}
+              wrapperCol={{ span: 13 }}
+              labelCol={{ span: 3 }}
+              onFinish={update}
+            >
+              <Form.Item label="商品名">
+                {goodsDetail?.name}
+              </Form.Item>
+              <Form.Item label="所需积分" name="needScores">
+                <InputNumber
+                  min={0}
+                />
+              </Form.Item>
+              <Form.Item label="库存" name="inventory">
+                <InputNumber min={0}/>
+              </Form.Item>
+              <Form.Item label="上架状态" name="isForSale">
+                <Radio.Group>
+                  <Radio value={0}>上架</Radio>
+                  <Radio value={1}>下架</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Divider/>
+              <Button type="primary" onClick={form.submit}>更新</Button>
+            </Form>
           </Skeleton>
         </TabPane>
       </Tabs>

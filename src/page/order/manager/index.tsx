@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
-import { Form, Select, Button, Input, DatePicker, Skeleton } from 'antd';
+import { message, Table } from 'antd';
+import { Form, Select, Button, Input, DatePicker, Skeleton, Pagination } from 'antd';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import api from '@/api';
@@ -39,7 +39,7 @@ function Manager() {
       begin: searchParams?.time?.[0]?.valueOf(),
       end: searchParams?.time?.[1]?.valueOf(),
     }).then((res) => {
-      setOrderList(res.orderList);
+      setOrderList(res.order);
       setTotal(res.total);
     }).finally(() => {
       setInit(true);
@@ -87,10 +87,94 @@ function Manager() {
         <div className={styles['right-part']}>
         </div>
       </div>
+      <div className={styles.body}>
       <Skeleton loading={loading} active>
-        <Table/>
+        <Table
+          columns={[
+            {
+              key: 'commodity',
+              title: '商品信息',
+              render(record) {
+                return (
+                  <>
+                    商品名：{record.commodity.name}<br/>
+                    所需积分：{record.commodity.needScores}
+                  </>
+                );
+              }
+            },
+            {
+              key: 'user',
+              title: '用户openid',
+              render: (record) => record.user.openid,
+            },
+            {
+              key: 'address',
+              title: '用户地址',
+              render(record) {
+                return (
+                  <>
+                    姓名：{record.address.name}<br/>
+                    地址：{record.address.detailAddress}<br/>
+                    电话：{record.address.tel}
+                  </>
+                );
+              }
+            },
+            {
+              key: 'status',
+              title: '订单状态',
+              render: (record) => record.status,
+            },
+            {
+              key: 'time',
+              title: '订单产生时间',
+              render: (record) => moment.unix(record.time/1000).format('YYYY-MM-DD HH:mm:ss'),
+            },
+            {
+              key: 'operator',
+              title: '操作',
+              render(record){
+                return(
+                  <>
+                    <Button
+                      disabled={record.status === "已发货"}
+                      type="link"
+                      onClick={() => {
+                        api.deliverGoods({
+                          orderId: record.id,
+                        }).then(() => {
+                          message.success('发货成功');
+                          setInit(false);
+                        });
+                      }}
+                    >发货</Button>
+                  </>
+                );
+              },
+            },
+          ]}
+          dataSource={orderList}
+          loading={loading}
+          rowKey={(record) => record.time}
+          pagination={false}
+        />
+        <div className={styles['pagination-wrapper']}>
+          <Pagination
+            showSizeChanger={total > 10}
+            className={styles.pagination}
+            current={page}
+            pageSize={pageSize}
+            onChange={(page, pageSize) => {
+              setPage(page);
+              setPageSize(pageSize || 9);
+            }}
+            total={total}
+            pageSizeOptions={['10', '20']}
+          />
+        </div>
       </Skeleton>
-      
+      </div>
     </div>
   );
 }
