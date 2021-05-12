@@ -1,46 +1,45 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Upload, Divider, InputNumber, message } from 'antd';
+import ReactPlayer from 'react-player';
+import { Form, Input, Button, Divider, InputNumber, message, Tag } from 'antd';
 import history from '@/util/history';
 import api from '@/api';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { chooseFile } from'@/util';
+import upload from'@/util/cos';
 
-const CreateAd = () => {
+import styles from './index.module.less';
+
+const CreatePlugin = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
+  const [videoUrl, setVideoUrl] = useState<string>();
 
   const submit = () => {
-    api.createGood({
-      image: imageUrl,
-      isForSale: 0,
+    api.createAd({
+      url: videoUrl,
       ...form.getFieldsValue(),
     }).then(() => {
       message.success('创建成功');
-      history.push('/plugin/center');
+      history.push('/Ad/center');
+    });
+  };
+
+  const uploadFile = async() => {
+    const fileSrc = await chooseFile();
+    setLoading(true);
+    upload.upload(...fileSrc).then(res => {
+      setVideoUrl(`http://${res.Location}`);
+    }).finally(() => {
+      setLoading(false);
     });
   };
 
   const uploadButton = (
-    <div>
+    <div className={styles.upload} onClick={() => uploadFile()}>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-
-  const handleChange = info => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      if(info.file.response.ret === 0) {
-        setImageUrl(info.file.response.url);
-      } else {
-        message.error(`上传失败: ${info.file.response.msg}`);
-      }
-      setLoading(false);
-    }
-  };
 
   return (
     <div>
@@ -52,48 +51,30 @@ const CreateAd = () => {
       >
         信息
         <Divider/>
-        <Form.Item label="商品名称" name="name"
+        <Form.Item label="公司名称" name="name"
           rules={[
             {
               required: true,
-              message: '请输入商品名称',
+              message: '请输入公司名称',
             },
           ]}
         >
           <Input />
         </Form.Item>
-        <Form.Item label="所需积分" name="needScores"
+        <Form.Item label="关键词" name="keyword"
           rules={[
             {
               required: true,
-              message: '请输入商品所需积分',
+              message: '请输入广告关键词',
             },
           ]}
         >
-          <InputNumber min={0}/>
+          <Input/>
+          <Button></Button>
         </Form.Item>
-        <Form.Item label="图片">
-          <Upload
-            name="file"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="http://www.liiux.cn:8080/image/commodity"
-            method="post"
-            onChange={handleChange}
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
-        </Form.Item>
-        <Form.Item label="库存" name="inventory"
-          rules={[
-            {
-              required: true,
-              message: '请输入库存',
-            },
-          ]}
-        >
-          <InputNumber min={0}/>
+        <Form.Item label="视频">
+          {videoUrl ? <ReactPlayer url={videoUrl} className='react-player'
+            playing style={{ width: '100%' }} /> : uploadButton}
         </Form.Item>
         <Divider/>
         <Button 
@@ -105,4 +86,4 @@ const CreateAd = () => {
   );
 };
 
-export default CreateAd;
+export default CreatePlugin;

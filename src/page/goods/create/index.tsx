@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Upload, Divider, InputNumber, message } from 'antd';
+import { Form, Input, Button, Divider, InputNumber, message } from 'antd';
 import history from '@/util/history';
 import api from '@/api';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { chooseFile } from'@/util';
+import upload from'@/util/cos';
+
+import styles from './index.module.less';
 
 const CreatePlugin = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState<string>();
 
   const submit = () => {
     api.createGood({
@@ -20,27 +24,22 @@ const CreatePlugin = () => {
     });
   };
 
+  const uploadFile = async() => {
+    const fileSrc = await chooseFile();
+    setLoading(true);
+    upload.upload(...fileSrc).then(res => {
+      setImageUrl(`http://${res.Location}`);
+    }).finally(() => {
+      setLoading(false);
+    });
+  };
+
   const uploadButton = (
-    <div>
+    <div className={styles.upload} onClick={() => uploadFile()}>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
-
-  const handleChange = info => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      if(info.file.response.ret === 0) {
-        setImageUrl(info.file.response.url);
-      } else {
-        message.error(`上传失败: ${info.file.response.msg}`);
-      }
-      setLoading(false);
-    }
-  };
 
   return (
     <div>
@@ -73,17 +72,7 @@ const CreatePlugin = () => {
           <InputNumber min={0}/>
         </Form.Item>
         <Form.Item label="图片">
-          <Upload
-            name="file"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="http://www.liiux.cn:8080/image/commodity"
-            method="post"
-            onChange={handleChange}
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
+          {imageUrl ? <img src={imageUrl} style={{ width: '100%' }} /> : uploadButton}
         </Form.Item>
         <Form.Item label="库存" name="inventory"
           rules={[

@@ -1,0 +1,62 @@
+@import '~@/style/def.less';
+@import '~@/style/global.less';
+
+.main {
+  overflow-y: scroll;
+  .header {
+      height: 34px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      .left-part {
+          display: flex;
+          align-items: center;
+          .search-input {
+              width: 200px;
+              height: 34px;
+              border: 1px solid #E1E6EB;
+              border-radius: 2px;
+          }
+          .checkLeft {
+              margin-left: 10px;
+          }
+          .search-btn {
+              width: 68px;
+              height: 34px;
+              margin-right: 100px;
+              border-radius: 2px;
+              color: white;
+          }
+      }
+      .right-part {
+        margin-right: 8px;
+      }
+  }
+  .body {
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    :global(.ant-form-item){
+        width: 100%;
+        margin-bottom: 0px;
+    }
+    :global{
+      .ant-pagination {
+        height: 105px;
+      }
+    }
+    .plugin-block {
+      direction: row;
+    }
+    .pagination-wrapper {
+      margin-top: 20px;
+      .pagination {
+        float:right;
+      }
+    }
+  }
+  .operateIcons {
+      display: flex;
+      align-items: center;
+  }
+}

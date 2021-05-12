@@ -28,7 +28,7 @@ export const backendReq = ({
   data,
   params,
   method,
-  timeout: 10000,
+  timeout: 30000,
   ...commonConf,
 })
   .then((response) => {

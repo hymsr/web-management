@@ -102,6 +102,29 @@ export const sliderRoutes: Route[] = [
         icon: <ShareAltOutlined />,
         path: '/Ad/manager',
         component: React.lazy(() => import('@/page/ad/manager')),
+        routes:[
+          {
+            prefix: '/Ad/detail/:AdId',
+            name: '广告详情',
+            icon: <ShareAltOutlined />,
+            path: '/Ad/detail/:AdId',
+            component: React.lazy(() => import('@/page/ad/manager/detail')),
+          },
+        ],
+      },
+      {
+        prefix: '/Ad/schedule',
+        name: '排期管理',
+        icon: <ShareAltOutlined />,
+        path: '/Ad/schedule',
+        component: React.lazy(() => import('@/page/ad/schedule')),
+      },
+      {
+        prefix: '/Ad/create',
+        name: '广告创建',
+        icon: <ShareAltOutlined />,
+        path: '/Ad/create',
+        component: React.lazy(() => import('@/page/ad/create')),
       },
       {
         path: '/Ad',
@@ -109,6 +132,22 @@ export const sliderRoutes: Route[] = [
         render() {
           return <Redirect to={'/Ad/manager'}/>;
         },
+      },
+    ],
+  },
+  {
+    prefix: '/block',
+    name: '区块',
+    icon: <ShareAltOutlined />,
+    path: '/block',
+    component: React.lazy(() => import('@/page/block-chain')),
+    routes: [
+      {
+        prefix: '/block/manager',
+        name: '订单管理',
+        icon: <ShareAltOutlined />,
+        path: '/block/manager',
+        component: React.lazy(() => import('@/page/block-chain/detail')),
       },
     ],
   },

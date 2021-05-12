@@ -1,13 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/api';
-import { Form, Button, Pagination, Input, Select, Skeleton } from 'antd';
+import { Form, Button, Pagination, Input, Modal, Skeleton, DatePicker, message } from 'antd';
 import styles from './index.module.less';
 import history from '@/util/history';
-import Goods from '@/component/goods';
+import AdItem from '@/component/adItem';
 
-export default function GoodsMarket() {
+export const CreateScheModal = (props) => {
+  const { visible, setVisible, ad, sche = null } = props;
+
+  const [date, setDate] = useState<any>();
+
+  useEffect(() => {
+    if(!visible) return;
+  }, [visible]);
+
+  const create = () => {
+    api.createSche({
+      advertisementId: ad.id,
+      startTime: date[0].valueof(),
+      endTime: date[1].valueof(),
+    }).then(() => {
+      message.success('创建成功');
+      setVisible(false);
+    });
+  };
+
+  const update = () => {
+    api.updateSche({
+      id: sche.id,
+      advertisementId: ad.id,
+      startTime: date[0].valueof(),
+      endTime: date[1].valueof(),
+    }).then(() => {
+      message.success('创建成功');
+      setVisible(false);
+    });
+  };
+
+  return (
+    <Modal
+      onOk={sche ? create : update}
+    >
+      <Form>
+        <Form.Item label="公司">
+          {ad?.company}
+        </Form.Item>
+        <Form.Item label="关键词">
+          {ad?.keyword}
+        </Form.Item>
+        <Form.Item label="排期">
+          <DatePicker.RangePicker 
+            showTime
+            value={date}
+            onChange={e => {
+              setDate(e);
+            }}
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+  )
+}
+
+export default function AdManager() {
   const [form] = Form.useForm();
-  const [goodsList, setGoodsList] = useState<any>();
+  const [adList, setAdList] = useState<any>();
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(9);
@@ -17,6 +74,8 @@ export default function GoodsMarket() {
     isForSale: -1,
   }));
   const [loading, setLoading] = useState(true);
+  const [scheModalVisible, setScheModalVisible] = useState(false);
+  const [preScheAd, setPreScheAd] = useState();
 
   const submit = () => {
     setSearchParams(form.getFieldsValue());
@@ -28,12 +87,12 @@ export default function GoodsMarket() {
     if (init) return;
     setLoading(true);
 
-    api.getGoodsList({
+    api.getAdList({
       ...searchParams,
       page_index: page,
       page_size: pageSize,
     }).then((res) => {
-      setGoodsList(res.commodity);
+      setAdList(res.advertisement);
       setTotal(res.total);
     }).finally(() => {
       setInit(true);
@@ -42,29 +101,24 @@ export default function GoodsMarket() {
 
   }, [init, page, pageSize]);
 
+  const newSche = () => {
+
+  }
+
   return (
     <>
       <div className={styles.main}>
         <div className={styles.header}>
           <div className={styles['left-part']}>
             <Form form={form} layout="inline">
-              <Form.Item label="商品名" name="name">
+              <Form.Item label="公司" name="company">
                 <Input placeholder="模糊搜索"/>
               </Form.Item>
               <Form.Item
-                label="上架状态"
-                name="isForSale"
-                initialValue={0}
+                label="关键词"
+                name="keyword"
               >
-                <Select
-                  style={{ width: 120 }}
-                  placeholder="全部"
-                  options={[
-                    { label: '全部', value: -1 },
-                    { label: '上架', value: 0 },
-                    { label: '下架', value: 1 },
-                  ]}
-                />
+                <Input placeholder="模糊搜索"/>
               </Form.Item>
               <Form.Item>
                 <Button type="primary" onClick={submit}>
@@ -74,8 +128,8 @@ export default function GoodsMarket() {
             </Form>
           </div>
           <div className={styles['right-part']}>
-            <Button type="primary" onClick={() => history.push('/goods/create')}>
-              新建商品
+            <Button type="primary" onClick={() => history.push('/Ad/create')}>
+              新建广告
             </Button>
           </div>
         </div>
@@ -83,9 +137,13 @@ export default function GoodsMarket() {
           <Skeleton loading={loading} active>
             <div className={styles['plugin-block']}>
               {
-                goodsList?.map(goods => <Goods 
-                  key={goods.pluginId} 
-                  goodsItem={goods} 
+                adList?.map(ad => <AdItem 
+                  key={ad.id} 
+                  adItem={ad}
+                  newSche={() => {
+                    setPreScheAd(ad);
+                    setScheModalVisible(true);
+                  }}
                 />)
               }
             </div>
@@ -106,6 +164,11 @@ export default function GoodsMarket() {
           </Skeleton>
         </div>
       </div>
+      <CreateScheModal
+        visible={scheModalVisible}
+        setVisible={setScheModalVisible}
+        ad={preScheAd}
+      />
     </>
   );
 }
