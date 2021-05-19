@@ -39,6 +39,7 @@ export const CreateScheModal = (props) => {
 
   return (
     <Modal
+      visible={visible}
       onOk={sche ? create : update}
     >
       <Form>

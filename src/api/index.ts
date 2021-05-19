@@ -98,6 +98,12 @@ const api = {
       method: 'get',
     });
   },
+  deleteSche(params): Promise<any> {
+    return backendReq({
+      url: `/advertisementScheduling/${params.id}`,
+      method: 'delete',
+    });
+  },
 };
 
 export default api;

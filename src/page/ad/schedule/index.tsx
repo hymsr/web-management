@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { message, Table } from 'antd';
 import { Form, Button, Input, DatePicker, Skeleton, Pagination, Modal } from 'antd';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -126,6 +126,15 @@ function Manager() {
                       setOpSche(record.advertisementScheduling);
                     }}>
                       修改
+                    </Button>
+                    <Button type="link" onClick={() => {
+                      api.deleteSche({
+                        id: record.id,
+                      }).then(() => {
+                        message.success('删除成功');
+                      });
+                    }}>
+                      删除
                     </Button>
                   </>;
                 }
