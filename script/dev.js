@@ -22,7 +22,7 @@ const server = new WebpackDevServer(webpack(webpackConf), {
   proxy: {
     // 统一后台服务，转发往后台网关
     [baseConf.reqNameSpace.api]: {
-      target: 'https://www.liiux.cn/server',
+      target: 'http://localhost:8080',
       pathRewrite: { [`^${baseConf.reqNameSpace.api}`]: '' },
       changeOrigin: true,
     },

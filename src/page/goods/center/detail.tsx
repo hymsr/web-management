@@ -15,8 +15,8 @@ export default function PluginDetail({ match }) {
     api.getGoodsItem({
       id: match.params.goodsId,
     }).then((res) => {
-      setGoodsDetail(res.item);
-      form.setFieldsValue(res.item);
+      setGoodsDetail(res.commodity);
+      form.setFieldsValue(res.commodity);
       setLoading(false);
     });
   }, [match.params.goodsId]);
@@ -54,8 +54,8 @@ export default function PluginDetail({ match }) {
               </Form.Item>
               <Form.Item label="上架状态" name="isForSale">
                 <Radio.Group>
-                  <Radio value={0}>上架</Radio>
-                  <Radio value={1}>下架</Radio>
+                  <Radio value={1}>上架</Radio>
+                  <Radio value={0}>下架</Radio>
                 </Radio.Group>
               </Form.Item>
               <Divider/>

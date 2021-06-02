@@ -14,7 +14,6 @@ function Manager() {
   const [init, setInit] = useState(false);
   const [orderList, setOrderList] = useState<any>();
   const [searchParams, setSearchParams] = useState<any>(() => {
-    const t = moment(new Date());
     return {
       isSent: -1,
     };

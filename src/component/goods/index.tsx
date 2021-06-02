@@ -7,11 +7,11 @@ import styles from './index.module.less';
 const Goods = ({ goodsItem }) => {
 
   const handleItemStatus = (status) => {
-    if (status === 0) return 'success';
-    if (status === 1) return 'error';
+    if (status === 0) return 'error';
+    if (status === 1) return 'success';
   };
 
-  const forSale = ['上架', '下架']
+  const forSale = ['下架', '上架']
 
   return (
     <div className={styles['plugin-item-card']}>

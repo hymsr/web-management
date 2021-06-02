@@ -94,7 +94,7 @@ export const sliderRoutes: Route[] = [
     name: '广告',
     icon: <ShareAltOutlined />,
     path: '/Ad',
-    component: React.lazy(() => import('@/page/Ad')),
+    component: React.lazy(() => import('@/page/ad')),
     routes: [
       {
         prefix: '/Ad/manager',
@@ -104,10 +104,10 @@ export const sliderRoutes: Route[] = [
         component: React.lazy(() => import('@/page/ad/manager')),
         routes:[
           {
-            prefix: '/Ad/detail/:AdId',
+            prefix: '/Ad/manager/detail/:AdId',
             name: '广告详情',
             icon: <ShareAltOutlined />,
-            path: '/Ad/detail/:AdId',
+            path: '/Ad/manager/detail/:AdId',
             component: React.lazy(() => import('@/page/ad/manager/detail')),
           },
         ],
@@ -144,7 +144,7 @@ export const sliderRoutes: Route[] = [
     routes: [
       {
         prefix: '/block/manager',
-        name: '订单管理',
+        name: '区块链查看',
         icon: <ShareAltOutlined />,
         path: '/block/manager',
         component: React.lazy(() => import('@/page/block-chain/detail')),

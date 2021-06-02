@@ -91,6 +91,13 @@ const api = {
       method: 'put',
     });
   },
+  querySche(params) {
+    return backendReq({
+      params,
+      url: `/advertisementScheduling`,
+      method: 'get',
+    });
+  },
   queryBlock(params): Promise<any> {
     return backendReq({
       params,

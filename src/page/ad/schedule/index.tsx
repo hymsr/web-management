@@ -10,7 +10,7 @@ import styles from './index.module.less';
 
 function Manager() {
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(9);
+  const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [init, setInit] = useState(false);
   const [scheList, setScheList] = useState<any>();
@@ -31,7 +31,7 @@ function Manager() {
     if (init) return;
     setLoading(true);
 
-    api.getOrderList({
+    api.querySche({
       page_index: page,
       page_size: pageSize,
       begin: date?.[0].valueOf(),

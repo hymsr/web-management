@@ -51,7 +51,7 @@ const CreatePlugin = () => {
       >
         信息
         <Divider/>
-        <Form.Item label="公司名称" name="name"
+        <Form.Item label="公司名称" name="company"
           rules={[
             {
               required: true,
@@ -70,7 +70,6 @@ const CreatePlugin = () => {
           ]}
         >
           <Input/>
-          <Button></Button>
         </Form.Item>
         <Form.Item label="视频">
           {videoUrl ? <ReactPlayer url={videoUrl} className='react-player'

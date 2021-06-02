@@ -11,10 +11,7 @@ export default function blockChainSearch() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(9);
   const [init, setInit] = useState(false);
-  const [searchParams, setSearchParams] = useState<any>(() => ({
-    name: '',
-    isForSale: -1,
-  }));
+  const [searchParams, setSearchParams] = useState<any>(() => ({}));
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState<any>();
 
@@ -30,7 +27,9 @@ export default function blockChainSearch() {
 
     api.queryBlock({
       ...searchParams,
-      page_size: pageSize,
+      begin: date?.[0].valueOf(),
+      end: date?.[1].valueOf(),
+      page_size: 500,
     }).then((res) => {
       setBlockList(res.blockList);
       setTotal(res.total);

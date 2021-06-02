@@ -13,7 +13,7 @@ const AdItem = ({ adItem, newSche }) => {
           {adItem?.keyword}
         </div>}
         actions={[
-          <EditOutlined key="edit" onClick={() => history.push(`/Ad/center/detail/${adItem.id}`)}/>,
+          <EditOutlined key="edit" onClick={() => history.push(`/Ad/manager/detail/${adItem.id}`)}/>,
           <PlusSquareOutlined key="new" onClick={newSche}/>
         ]}
       >

@@ -17,30 +17,20 @@ export const CreateScheModal = (props) => {
   const create = () => {
     api.createSche({
       advertisementId: ad.id,
-      startTime: date[0].valueof(),
-      endTime: date[1].valueof(),
+      startTime: date[0].valueOf(),
+      endTime: date[1].valueOf(),
     }).then(() => {
       message.success('创建成功');
       setVisible(false);
     });
   };
 
-  const update = () => {
-    api.updateSche({
-      id: sche.id,
-      advertisementId: ad.id,
-      startTime: date[0].valueof(),
-      endTime: date[1].valueof(),
-    }).then(() => {
-      message.success('创建成功');
-      setVisible(false);
-    });
-  };
 
   return (
     <Modal
       visible={visible}
-      onOk={sche ? create : update}
+      onOk={create}
+      onCancel={() => setVisible(false)}
     >
       <Form>
         <Form.Item label="公司">
