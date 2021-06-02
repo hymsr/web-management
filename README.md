@@ -1,18 +1,8 @@
-# template-web
+# web-management
 
 客户端：react + antd + mobx
 
 服务端：koa
-
-## web访问地址
-
-正式环境：
-
-测试环境：
-## 部署平台
-
-ta
-## 运行
 
 ### 安装依赖
 
